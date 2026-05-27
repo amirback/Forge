@@ -6,404 +6,306 @@
     <title>Forge — AI Incubator · Central Asia</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
-
         :root {
-            --green:       #006039;
-            --green-dark:  #004d2d;
-            --green-light: #f0f6f2;
-            --green-mid:   #e0ede6;
-            --white:       #ffffff;
-            --off-white:   #f8f8f6;
-            --text:        #0d0d0d;
-            --muted:       #6a6a6a;
-            --border:      #e8e8e4;
+            --green:      #006039;
+            --green-dark: #004d2d;
+            --green-light:#f0f6f2;
+            --white:      #ffffff;
+            --off:        #f7f7f5;
+            --text:       #0d0d0d;
+            --muted:      #6a6a6a;
+            --border:     #e8e8e4;
         }
-
         html { scroll-behavior: smooth; }
-
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', sans-serif;
-            color: var(--text);
-            background: var(--white);
+            color: var(--text); background: var(--white);
             -webkit-font-smoothing: antialiased;
         }
 
-        /* ── NAV ──────────────────────────────────── */
+        /* ─ NAV ─────────────────────────────────── */
         nav {
             position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-            background: var(--green);
-            height: 62px;
+            background: var(--green); height: 62px;
             display: flex; align-items: center; justify-content: space-between;
             padding: 0 40px;
         }
-        .nav-logo {
-            font-size: 17px; font-weight: 800; letter-spacing: -0.3px;
-            color: white; text-decoration: none;
-        }
-        .nav-logo em { color: rgba(255,255,255,0.45); font-style: normal; }
+        .nav-logo { font-size: 17px; font-weight: 800; color: white; text-decoration: none; letter-spacing: -0.3px; }
+        .nav-logo em { color: rgba(255,255,255,.4); font-style: normal; }
         .nav-links { display: flex; align-items: center; gap: 36px; }
-        .nav-links a {
-            font-size: 13px; color: rgba(255,255,255,0.55); text-decoration: none;
-            font-weight: 500; letter-spacing: 0.2px; transition: color .2s;
-        }
+        .nav-links a { font-size: 13px; color: rgba(255,255,255,.55); text-decoration: none; font-weight: 500; transition: color .2s; }
         .nav-links a:hover { color: white; }
-        .nav-cta {
-            background: white; color: var(--green) !important;
-            padding: 8px 20px; border-radius: 5px;
-            font-size: 13px; font-weight: 700;
-            text-decoration: none; transition: opacity .2s;
-        }
-        .nav-cta:hover { opacity: .88; }
+        .nav-cta { background: white; color: var(--green) !important; padding: 8px 20px; border-radius: 5px; font-size: 13px; font-weight: 700; text-decoration: none; transition: opacity .2s; }
+        .nav-cta:hover { opacity: .85; }
         @media (max-width: 640px) { .nav-links { display: none; } }
 
-        /* ── HERO ─────────────────────────────────── */
-        .hero {
-            min-height: 100vh;
-            display: flex; flex-direction: column; justify-content: center;
-            padding: 100px 40px 80px;
-            max-width: 1160px; margin: 0 auto;
+        /* ─ HERO ─────────────────────────────────── */
+        .hero-section {
+            min-height: 100vh; display: flex; flex-direction: column; justify-content: center;
+            padding: 110px 40px 60px; max-width: 1160px; margin: 0 auto;
+            position: relative;
         }
         .hero-badge {
             display: inline-flex; align-items: center; gap: 8px;
             background: var(--green-light); color: var(--green);
             padding: 5px 13px; border-radius: 100px;
             font-size: 11px; font-weight: 700; letter-spacing: 1px;
-            text-transform: uppercase; width: fit-content; margin-bottom: 40px;
+            text-transform: uppercase; width: fit-content; margin-bottom: 36px;
         }
-        .hero-badge::before {
-            content: ''; width: 5px; height: 5px;
-            background: var(--green); border-radius: 50%;
+        .hero-badge::before { content:''; width:5px; height:5px; background:var(--green); border-radius:50%; }
+        .hero-title {
+            font-size: clamp(80px, 13vw, 160px);
+            font-weight: 900; letter-spacing: -7px; line-height: 0.85;
+            color: var(--text); margin-bottom: 0;
         }
-        h1 {
-            font-size: clamp(68px, 10vw, 120px);
-            font-weight: 900; letter-spacing: -5px; line-height: 0.88;
-            color: var(--text); margin-bottom: 32px;
+        .hero-title em { color: var(--green); font-style: normal; }
+        .hero-row {
+            display: flex; align-items: flex-end; justify-content: space-between;
+            gap: 40px; margin-top: 36px; flex-wrap: wrap;
         }
         .hero-tagline {
-            font-size: clamp(20px, 3vw, 32px);
-            font-weight: 600; letter-spacing: -0.5px; color: var(--text);
-            margin-bottom: 18px;
+            font-size: clamp(18px, 2.5vw, 28px); font-weight: 600;
+            letter-spacing: -0.5px; color: var(--text); max-width: 480px;
         }
-        .hero-desc {
-            font-size: 16px; line-height: 1.75; color: var(--muted);
-            max-width: 480px; margin-bottom: 44px;
-        }
-        .hero-btns { display: flex; gap: 12px; flex-wrap: wrap; }
+        .hero-right { display: flex; flex-direction: column; align-items: flex-end; gap: 20px; }
+        .hero-desc { font-size: 14px; line-height: 1.75; color: var(--muted); max-width: 320px; text-align: right; }
+        .hero-btns { display: flex; gap: 10px; }
         .btn-primary {
-            background: var(--green); color: white;
-            padding: 14px 28px; border-radius: 6px;
-            font-size: 14px; font-weight: 600;
-            text-decoration: none; transition: background .2s, transform .15s;
-            display: inline-block;
+            background: var(--green); color: white; padding: 13px 26px;
+            border-radius: 6px; font-size: 14px; font-weight: 600;
+            text-decoration: none; transition: background .2s, transform .15s; display: inline-block;
         }
         .btn-primary:hover { background: var(--green-dark); transform: translateY(-1px); }
         .btn-ghost {
-            background: transparent; color: var(--text);
-            padding: 14px 28px; border-radius: 6px;
-            font-size: 14px; font-weight: 600;
-            border: 1.5px solid var(--border);
-            text-decoration: none; transition: border-color .2s;
-            display: inline-block;
+            background: transparent; color: var(--text); padding: 13px 26px;
+            border-radius: 6px; font-size: 14px; font-weight: 600;
+            border: 1.5px solid var(--border); text-decoration: none;
+            transition: border-color .2s; display: inline-block;
         }
         .btn-ghost:hover { border-color: var(--green); color: var(--green); }
 
-        /* ── SECTIONS ─────────────────────────────── */
+        /* ─ MARQUEE ──────────────────────────────── */
+        .marquee-wrap {
+            background: var(--green); overflow: hidden;
+            border-top: 1px solid var(--green-dark);
+            padding: 14px 0;
+        }
+        .marquee-track {
+            display: flex; gap: 0;
+            animation: marquee 22s linear infinite;
+            width: max-content;
+        }
+        .marquee-track:hover { animation-play-state: paused; }
+        .marquee-item {
+            display: flex; align-items: center; gap: 20px;
+            padding: 0 24px; white-space: nowrap;
+            font-size: 12px; font-weight: 700; letter-spacing: 2px;
+            text-transform: uppercase; color: rgba(255,255,255,.55);
+        }
+        .marquee-item::after { content:'·'; color: rgba(255,255,255,.25); }
+        @keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+        /* ─ STATS BAR ────────────────────────────── */
+        .stats-bar {
+            background: var(--off); border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+        }
+        .stats-bar-inner {
+            max-width: 1160px; margin: 0 auto;
+            display: grid; grid-template-columns: repeat(4, 1fr);
+        }
+        .sbar-item {
+            padding: 44px 40px; border-right: 1px solid var(--border);
+            position: relative;
+        }
+        .sbar-item:last-child { border-right: none; }
+        .sbar-n {
+            font-size: clamp(44px, 5vw, 72px); font-weight: 900;
+            letter-spacing: -3px; color: var(--green); line-height: 1;
+        }
+        .sbar-l { font-size: 13px; color: var(--muted); margin-top: 8px; font-weight: 500; max-width: 140px; line-height: 1.4; }
+
+        /* ─ SECTIONS ─────────────────────────────── */
         section { padding: 100px 40px; }
         .wrap { max-width: 1160px; margin: 0 auto; }
-        .label {
-            font-size: 10px; font-weight: 700; letter-spacing: 2.5px;
-            text-transform: uppercase; color: var(--green); margin-bottom: 14px;
-        }
-        h2 {
-            font-size: clamp(28px, 4vw, 48px);
-            font-weight: 800; letter-spacing: -2px; line-height: 1.08;
-            margin-bottom: 18px;
-        }
-        .section-lead {
-            font-size: 16px; line-height: 1.75; color: var(--muted); max-width: 560px;
-        }
+        .label { font-size: 10px; font-weight: 700; letter-spacing: 2.5px; text-transform: uppercase; color: var(--green); margin-bottom: 14px; }
+        h2 { font-size: clamp(28px, 4vw, 52px); font-weight: 800; letter-spacing: -2px; line-height: 1.05; margin-bottom: 20px; }
+        .section-lead { font-size: 16px; line-height: 1.75; color: var(--muted); max-width: 560px; }
         .hr { border: none; border-top: 1px solid var(--border); }
-        .bg-light { background: var(--off-white); }
-        .bg-green { background: var(--green); }
-        .bg-green-light { background: var(--green-light); }
 
-        /* ── ABOUT ────────────────────────────────── */
-        .about-grid {
-            display: grid; grid-template-columns: 1fr 1fr;
-            gap: 100px; align-items: center;
+        /* ─ MANIFESTO ────────────────────────────── */
+        .manifesto {
+            background: var(--green); padding: 80px 40px;
+            text-align: center;
         }
-        .about-text p {
-            font-size: 15px; line-height: 1.9; color: var(--muted); margin-bottom: 14px;
+        .manifesto-text {
+            font-size: clamp(22px, 3.5vw, 44px);
+            font-weight: 800; letter-spacing: -1.5px; line-height: 1.2;
+            color: white; max-width: 900px; margin: 0 auto;
         }
-        .stats { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; }
-        .stat {
-            background: var(--green-light);
-            padding: 28px 24px;
-        }
-        .stat:first-child { border-radius: 12px 0 0 0; }
-        .stat:nth-child(2) { border-radius: 0 12px 0 0; }
-        .stat:nth-child(3) { border-radius: 0 0 0 12px; }
-        .stat:last-child { border-radius: 0 0 12px 0; }
-        .stat-n {
-            font-size: 40px; font-weight: 900; letter-spacing: -2px;
-            color: var(--green); line-height: 1;
-        }
-        .stat-l { font-size: 12px; color: var(--muted); margin-top: 7px; font-weight: 500; }
+        .manifesto-text em { color: rgba(255,255,255,.4); font-style: normal; }
 
-        /* ── FOR WHOM ─────────────────────────────── */
+        /* ─ ABOUT ────────────────────────────────── */
+        .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 100px; align-items: start; }
+        .about-text p { font-size: 15px; line-height: 1.9; color: var(--muted); margin-bottom: 14px; }
+        .about-quote {
+            font-size: clamp(22px, 2.5vw, 34px); font-weight: 800;
+            letter-spacing: -1px; line-height: 1.25; color: var(--text);
+            border-left: 3px solid var(--green); padding-left: 24px;
+            margin-bottom: 32px;
+        }
+
+        /* ─ FOR WHOM ─────────────────────────────── */
         .forwho-grid {
             display: grid; grid-template-columns: 1fr 1fr;
-            gap: 1px; margin-top: 52px;
+            gap: 1px; margin-top: 48px;
             border: 1px solid var(--border); border-radius: 12px; overflow: hidden;
         }
         .fw-item {
-            background: var(--white); padding: 32px 28px;
-            display: flex; align-items: flex-start; gap: 16px;
-            transition: background .2s;
+            background: var(--white); padding: 36px 32px;
+            display: flex; align-items: flex-start; gap: 18px; transition: background .2s;
         }
         .fw-item:hover { background: var(--green-light); }
-        .fw-check {
-            width: 22px; height: 22px; border-radius: 50%;
-            background: var(--green); flex-shrink: 0;
-            display: flex; align-items: center; justify-content: center; margin-top: 1px;
-        }
-        .fw-text { font-size: 15px; color: var(--text); line-height: 1.6; }
-        .fw-note {
-            margin-top: 20px; padding: 18px 24px;
-            background: var(--green-light);
-            border-left: 3px solid var(--green);
-            border-radius: 0 8px 8px 0;
-        }
+        .fw-num { font-size: 11px; font-weight: 700; color: var(--green); letter-spacing: 1px; margin-bottom: 8px; }
+        .fw-check { width: 22px; height: 22px; border-radius: 50%; background: var(--green); flex-shrink: 0; display: flex; align-items: center; justify-content: center; margin-top: 1px; }
+        .fw-title { font-size: 15px; font-weight: 700; margin-bottom: 5px; }
+        .fw-text { font-size: 13px; color: var(--muted); line-height: 1.6; }
+        .fw-note { margin-top: 20px; padding: 18px 24px; background: var(--green-light); border-left: 3px solid var(--green); border-radius: 0 8px 8px 0; }
         .fw-note p { font-size: 14px; color: var(--muted); line-height: 1.6; }
         .fw-note strong { color: var(--text); }
 
-        /* ── PROGRAM ──────────────────────────────── */
-        .timeline { border-top: 1px solid var(--border); margin-top: 60px; }
+        /* ─ PROGRAM ──────────────────────────────── */
+        .timeline { margin-top: 60px; }
         .phase {
-            display: grid; grid-template-columns: 180px 1fr;
-            border-bottom: 1px solid var(--border);
-            padding: 36px 0; align-items: start;
+            display: grid; grid-template-columns: 100px 1fr;
+            border-top: 1px solid var(--border); padding: 44px 0;
+            gap: 0; align-items: start; position: relative;
         }
-        .phase-meta { padding-right: 40px; }
+        .phase:last-child { border-bottom: 1px solid var(--border); }
+        .phase-num {
+            font-size: 80px; font-weight: 900; letter-spacing: -4px;
+            color: var(--green-light); line-height: 1; user-select: none;
+            padding-right: 24px;
+        }
+        .phase-inner { padding-top: 8px; }
         .phase-step { font-size: 10px; font-weight: 700; letter-spacing: 2px; color: var(--muted); text-transform: uppercase; margin-bottom: 6px; }
-        .phase-wk { font-size: 20px; font-weight: 800; letter-spacing: -1px; color: var(--green); }
-        .phase-title { font-size: 18px; font-weight: 700; margin-bottom: 10px; letter-spacing: -0.5px; }
-        .phase-desc { font-size: 14px; color: var(--muted); line-height: 1.8; }
+        .phase-wk { font-size: 13px; font-weight: 700; color: var(--green); margin-bottom: 12px; letter-spacing: 0.5px; }
+        .phase-title { font-size: 22px; font-weight: 800; margin-bottom: 10px; letter-spacing: -0.5px; }
+        .phase-desc { font-size: 14px; color: var(--muted); line-height: 1.8; max-width: 560px; }
 
-        /* ── PRODUCTS ─────────────────────────────── */
+        /* ─ PRODUCTS ─────────────────────────────── */
         .products-grid {
             display: grid; grid-template-columns: repeat(3, 1fr);
             gap: 1px; margin-top: 52px;
             border: 1px solid var(--border); border-radius: 12px; overflow: hidden;
         }
-        .p-card {
-            background: var(--white);
-            padding: 32px 28px; transition: background .2s;
-        }
+        .p-card { background: var(--white); padding: 36px 30px; transition: background .2s; }
         .p-card:hover { background: var(--green-light); }
-        .p-icon { width: 40px; height: 40px; margin-bottom: 18px; color: var(--green); }
+        .p-tag { font-size: 10px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--green); margin-bottom: 16px; opacity: .7; }
+        .p-icon { width: 40px; height: 40px; margin-bottom: 16px; }
         .p-icon svg { width: 40px; height: 40px; }
-        .p-title { font-size: 14px; font-weight: 700; margin-bottom: 6px; }
+        .p-title { font-size: 15px; font-weight: 700; margin-bottom: 8px; }
         .p-desc { font-size: 13px; color: var(--muted); line-height: 1.65; }
 
-        /* ── MENTORS ──────────────────────────────── */
-        .mentors-text { font-size: 15px; line-height: 1.85; color: var(--muted); max-width: 580px; margin-bottom: 12px; }
+        /* ─ MENTORS ──────────────────────────────── */
+        .mentor-split { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
+        .mentor-text p { font-size: 15px; line-height: 1.9; color: var(--muted); margin-bottom: 14px; }
         .mentor-card {
-            display: inline-flex; align-items: center; gap: 20px;
-            background: white; border: 1.5px solid var(--border);
-            border-radius: 12px; padding: 22px 26px; margin-top: 36px;
+            background: var(--green-light); border-radius: 16px;
+            padding: 36px; display: flex; flex-direction: column; gap: 20px;
         }
-        .m-avatar {
-            width: 52px; height: 52px; border-radius: 50%;
-            background: var(--green-light);
-            display: flex; align-items: center; justify-content: center; flex-shrink: 0;
-        }
+        .mentor-card-top { display: flex; align-items: center; gap: 16px; }
+        .m-avatar { width: 52px; height: 52px; border-radius: 50%; background: white; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
         .m-name { font-size: 15px; font-weight: 700; }
-        .m-role { font-size: 13px; color: var(--muted); margin-top: 2px; }
-        .m-badge { font-size: 11px; color: var(--green); font-weight: 700; margin-top: 4px; letter-spacing: 0.5px; }
+        .m-role { font-size: 12px; color: var(--muted); margin-top: 2px; }
+        .m-badge { font-size: 10px; color: var(--green); font-weight: 700; margin-top: 3px; letter-spacing: 1px; }
+        .mentor-card-body { font-size: 14px; color: var(--muted); line-height: 1.7; border-top: 1px solid rgba(0,96,57,.12); padding-top: 20px; }
 
-        /* ── BENEFITS ─────────────────────────────── */
+        /* ─ BENEFITS ─────────────────────────────── */
         .ben-grid {
             display: grid; grid-template-columns: repeat(3, 1fr);
             gap: 1px; margin-top: 52px;
             border: 1px solid var(--border); border-radius: 12px; overflow: hidden;
         }
-        .ben-item { background: var(--white); padding: 32px 28px; transition: background .2s; }
+        .ben-item { background: var(--white); padding: 36px 30px; transition: background .2s; }
         .ben-item:hover { background: var(--green-light); }
-        .ben-n { font-size: 11px; font-weight: 700; color: var(--green); letter-spacing: 1px; margin-bottom: 14px; }
-        .ben-t { font-size: 15px; font-weight: 700; margin-bottom: 8px; }
+        .ben-n { font-size: 11px; font-weight: 700; color: var(--green); letter-spacing: 1px; margin-bottom: 16px; }
+        .ben-t { font-size: 16px; font-weight: 700; margin-bottom: 8px; }
         .ben-d { font-size: 13px; color: var(--muted); line-height: 1.65; }
 
-        /* ── COMPARE ──────────────────────────────── */
+        /* ─ COMPARE ──────────────────────────────── */
         .cmp-table { border: 1px solid var(--border); border-radius: 12px; overflow: hidden; margin-top: 52px; }
-        .cmp-head { display: grid; grid-template-columns: 1fr 1fr 1fr; background: var(--off-white); border-bottom: 1px solid var(--border); }
+        .cmp-head { display: grid; grid-template-columns: 1fr 1fr 1fr; background: var(--off); border-bottom: 1px solid var(--border); }
         .cmp-hcell { padding: 16px 24px; font-size: 11px; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: 1.5px; }
         .cmp-hcell.forge-col { background: var(--green); color: white; }
         .cmp-row { display: grid; grid-template-columns: 1fr 1fr 1fr; border-top: 1px solid var(--border); }
         .cmp-cell { padding: 16px 24px; font-size: 14px; background: var(--white); color: var(--muted); }
-        .cmp-cell.feat { color: var(--text); font-weight: 600; background: var(--off-white); }
+        .cmp-cell.feat { color: var(--text); font-weight: 600; background: var(--off); }
         .cmp-cell.forge-col { background: var(--green-light); color: var(--green); font-weight: 600; }
 
-        /* ── FAQ ──────────────────────────────────── */
+        /* ─ FAQ ──────────────────────────────────── */
         .faq-list { border-top: 1px solid var(--border); margin-top: 52px; }
         .faq-item { border-bottom: 1px solid var(--border); }
-        .faq-btn {
-            width: 100%; display: flex; align-items: center;
-            justify-content: space-between; padding: 24px 0;
-            background: none; border: none; cursor: pointer; gap: 20px;
-        }
+        .faq-btn { width: 100%; display: flex; align-items: center; justify-content: space-between; padding: 24px 0; background: none; border: none; cursor: pointer; gap: 20px; }
         .faq-q { font-size: 16px; font-weight: 600; color: var(--text); text-align: left; }
-        .faq-ico {
-            width: 28px; height: 28px; background: var(--green-light);
-            border-radius: 50%; flex-shrink: 0;
-            display: flex; align-items: center; justify-content: center;
-            transition: transform .3s, background .2s;
-        }
+        .faq-ico { width: 28px; height: 28px; background: var(--green-light); border-radius: 50%; flex-shrink: 0; display: flex; align-items: center; justify-content: center; transition: transform .3s, background .2s; }
         .faq-item.open .faq-ico { transform: rotate(45deg); background: var(--green); }
         .faq-item.open .faq-ico path { stroke: white; }
         .faq-ans { max-height: 0; overflow: hidden; transition: max-height .3s ease; }
         .faq-ans-inner { padding: 0 0 24px; font-size: 14px; color: var(--muted); line-height: 1.85; max-width: 640px; }
 
-        /* ── CTA ──────────────────────────────────── */
-        .cta-block { background: var(--green); text-align: center; padding: 120px 40px; }
-        .cta-block h2 { color: white; margin-bottom: 14px; }
-        .cta-sub { font-size: 16px; color: rgba(255,255,255,.6); max-width: 440px; margin: 0 auto 40px; line-height: 1.65; }
-        .btn-white {
-            background: white; color: var(--green);
-            padding: 16px 36px; border-radius: 6px;
-            font-size: 14px; font-weight: 700;
-            text-decoration: none; display: inline-block;
-            transition: opacity .2s, transform .15s;
-        }
+        /* ─ CTA ──────────────────────────────────── */
+        .cta-block { background: var(--green); text-align: center; padding: 130px 40px; position: relative; overflow: hidden; }
+        .cta-block::before { content: 'Forge'; position: absolute; bottom: -60px; left: 50%; transform: translateX(-50%); font-size: 300px; font-weight: 900; letter-spacing: -16px; color: rgba(255,255,255,.04); white-space: nowrap; pointer-events: none; }
+        .cta-block h2 { color: white; margin-bottom: 14px; position: relative; }
+        .cta-sub { font-size: 16px; color: rgba(255,255,255,.6); max-width: 440px; margin: 0 auto 44px; line-height: 1.65; position: relative; }
+        .btn-white { background: white; color: var(--green); padding: 16px 36px; border-radius: 6px; font-size: 14px; font-weight: 700; text-decoration: none; display: inline-block; transition: opacity .2s, transform .15s; position: relative; }
         .btn-white:hover { opacity: .92; transform: translateY(-1px); }
 
-        /* ── FOOTER ───────────────────────────────── */
+        /* ─ FOOTER ───────────────────────────────── */
         footer { background: var(--green); padding: 52px 40px 40px; }
-        .foot-top {
-            max-width: 1160px; margin: 0 auto;
-            display: flex; align-items: flex-start; justify-content: space-between;
-            padding-bottom: 36px;
-            border-bottom: 1px solid rgba(255,255,255,0.12);
-            gap: 40px; flex-wrap: wrap;
-        }
+        .foot-top { max-width: 1160px; margin: 0 auto; display: flex; align-items: flex-start; justify-content: space-between; padding-bottom: 36px; border-bottom: 1px solid rgba(255,255,255,.1); gap: 40px; flex-wrap: wrap; }
         .foot-logo { font-size: 20px; font-weight: 800; color: white; letter-spacing: -0.5px; margin-bottom: 8px; }
-        .foot-logo em { color: rgba(255,255,255,0.4); font-style: normal; }
-        .foot-tagline { font-size: 12px; color: rgba(255,255,255,0.35); }
-        .foot-contact-label { font-size: 10px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: rgba(255,255,255,0.3); margin-bottom: 10px; }
-        .foot-email {
-            font-size: 14px; color: rgba(255,255,255,0.6); text-decoration: none;
-            display: flex; align-items: center; gap: 8px; transition: color .2s;
-        }
+        .foot-logo em { color: rgba(255,255,255,.35); font-style: normal; }
+        .foot-tagline { font-size: 12px; color: rgba(255,255,255,.3); }
+        .foot-contact-label { font-size: 10px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: rgba(255,255,255,.3); margin-bottom: 10px; }
+        .foot-email { font-size: 14px; color: rgba(255,255,255,.55); text-decoration: none; display: flex; align-items: center; gap: 8px; transition: color .2s; }
         .foot-email:hover { color: white; }
-        .foot-bottom {
-            max-width: 1160px; margin: 28px auto 0;
-            display: flex; align-items: center; justify-content: space-between;
-        }
-        .foot-copy { font-size: 11px; color: rgba(255,255,255,0.25); }
-        .foot-domain { font-size: 11px; color: rgba(255,255,255,0.25); }
+        .foot-bottom { max-width: 1160px; margin: 28px auto 0; display: flex; align-items: center; justify-content: space-between; }
+        .foot-copy { font-size: 11px; color: rgba(255,255,255,.2); }
+        .foot-domain { font-size: 11px; color: rgba(255,255,255,.2); }
 
-        /* ── DECORATIVE BACKGROUNDS ──────────────── */
-
-        /* Dot grid — hero */
-        .hero-wrap {
-            position: relative; overflow: hidden;
-        }
-        .hero-wrap::before {
-            content: '';
-            position: absolute; inset: 0;
-            background-image: radial-gradient(circle, rgba(0,0,0,0.07) 1px, transparent 1px);
-            background-size: 28px 28px;
-            pointer-events: none;
-            mask-image: radial-gradient(ellipse 80% 80% at 80% 50%, black 20%, transparent 80%);
-            -webkit-mask-image: radial-gradient(ellipse 80% 80% at 80% 50%, black 20%, transparent 80%);
-        }
-
-        /* Large ghost circles */
-        .deco-circles {
-            position: absolute; inset: 0;
-            pointer-events: none; overflow: hidden;
-        }
-        .deco-circles::before {
-            content: '';
-            position: absolute;
-            width: 700px; height: 700px; border-radius: 50%;
-            border: 1px solid rgba(0,96,57,0.07);
-            top: -200px; right: -200px;
-        }
-        .deco-circles::after {
-            content: '';
-            position: absolute;
-            width: 500px; height: 500px; border-radius: 50%;
-            border: 1px solid rgba(0,96,57,0.05);
-            top: -50px; right: -50px;
-        }
-
-        /* Corner line accent */
-        .deco-lines {
-            position: absolute; inset: 0;
-            pointer-events: none; overflow: hidden;
-        }
-        .deco-lines::before {
-            content: '';
-            position: absolute;
-            bottom: 0; left: 0;
-            width: 400px; height: 400px; border-radius: 50%;
-            border: 1px solid rgba(0,96,57,0.06);
-            transform: translate(-50%, 50%);
-        }
-
-        /* Subtle horizontal rule pattern for light sections */
-        .bg-light {
-            background: var(--off-white);
-            background-image: repeating-linear-gradient(
-                0deg,
-                transparent,
-                transparent 79px,
-                rgba(0,0,0,0.025) 80px
-            );
-        }
-
-        /* Section with side arc */
-        .has-arc { position: relative; overflow: hidden; }
-        .has-arc::after {
-            content: '';
-            position: absolute;
-            width: 600px; height: 600px; border-radius: 50%;
-            border: 1px solid rgba(0,96,57,0.06);
-            right: -200px; top: 50%;
-            transform: translateY(-50%);
-            pointer-events: none;
-        }
-
-        /* ── ANIMATIONS ───────────────────────────── */
-        .anim {
-            opacity: 0; transform: translateY(28px);
-            transition: opacity 0.65s cubic-bezier(0.16,1,0.3,1),
-                        transform 0.65s cubic-bezier(0.16,1,0.3,1);
-        }
+        /* ─ ANIMATIONS ───────────────────────────── */
+        .anim { opacity: 0; transform: translateY(28px); transition: opacity .65s cubic-bezier(.16,1,.3,1), transform .65s cubic-bezier(.16,1,.3,1); }
         .anim.in { opacity: 1; transform: translateY(0); }
         @media (prefers-reduced-motion: reduce) { .anim { opacity:1; transform:none; transition:none; } }
 
-        /* ── RESPONSIVE ───────────────────────────── */
+        /* ─ RESPONSIVE ───────────────────────────── */
         @media (max-width: 900px) {
-            .about-grid { grid-template-columns: 1fr; gap: 52px; }
+            .about-grid, .mentor-split { grid-template-columns: 1fr; gap: 52px; }
+            .stats-bar-inner { grid-template-columns: 1fr 1fr; }
+            .sbar-item:nth-child(2) { border-right: none; }
             .products-grid { grid-template-columns: 1fr 1fr; }
             .ben-grid { grid-template-columns: 1fr 1fr; }
+            .hero-row { flex-direction: column; align-items: flex-start; }
+            .hero-right { align-items: flex-start; }
+            .hero-desc { text-align: left; }
         }
         @media (max-width: 640px) {
             section { padding: 72px 20px; }
             nav { padding: 0 20px; }
-            .hero { padding: 90px 20px 72px; }
-            h1 { letter-spacing: -2px; }
+            .hero-section { padding: 90px 20px 60px; }
+            .hero-title { letter-spacing: -3px; }
             .forwho-grid { grid-template-columns: 1fr; }
-            .phase { grid-template-columns: 1fr; gap: 10px; }
-            .phase-meta { padding-right: 0; }
+            .phase { grid-template-columns: 60px 1fr; }
+            .phase-num { font-size: 48px; }
             .products-grid { grid-template-columns: 1fr; }
             .ben-grid { grid-template-columns: 1fr; }
             .cmp-head, .cmp-row { grid-template-columns: 1fr 1fr; }
             .cmp-hcell.feat-col, .cmp-cell.feat { display: none; }
             .foot-top { flex-direction: column; gap: 28px; }
             .foot-bottom { flex-direction: column; gap: 8px; text-align: center; }
+            .stats-bar-inner { grid-template-columns: 1fr 1fr; }
             .hero-btns { flex-direction: column; }
         }
     </style>
@@ -422,51 +324,105 @@
 </nav>
 
 <!-- HERO -->
-<div class="hero-wrap">
-<div style="max-width:1160px;margin:0 auto">
-    <div class="hero">
+<div style="background:var(--white); overflow:hidden">
+    <div class="hero-section">
         <div class="hero-badge">AI Incubator · Central Asia</div>
-        <h1>Forge</h1>
-        <div class="hero-tagline">Здесь куют AI-продукты</div>
-        <p class="hero-desc">Не курс. Не лекции. Реальный инкубатор, где каждый участник выходит с работающими продуктами на ИИ — за 10 недель.</p>
-        <div class="hero-btns">
-            <a href="apply.html" class="btn-primary">Подать заявку</a>
-            <a href="#about" class="btn-ghost">Узнать больше</a>
+        <div class="hero-title">Forge<em>.</em></div>
+        <div class="hero-row">
+            <div class="hero-tagline">Здесь куют<br>AI-продукты</div>
+            <div class="hero-right">
+                <p class="hero-desc">Не курс. Не лекции. Реальный инкубатор — за 10 недель ты выходишь с работающими AI-продуктами в портфолио.</p>
+                <div class="hero-btns">
+                    <a href="apply.html" class="btn-primary">Подать заявку</a>
+                    <a href="#about" class="btn-ghost">Узнать больше</a>
+                </div>
+            </div>
         </div>
     </div>
 </div>
-<div class="deco-circles"></div>
+
+<!-- MARQUEE -->
+<div class="marquee-wrap">
+    <div class="marquee-track">
+        <div class="marquee-item">AI Инкубатор</div>
+        <div class="marquee-item">Центральная Азия</div>
+        <div class="marquee-item">10 недель</div>
+        <div class="marquee-item">Реальные продукты</div>
+        <div class="marquee-item">Персональный ментор</div>
+        <div class="marquee-item">Demo Day</div>
+        <div class="marquee-item">Forge</div>
+        <div class="marquee-item">Казахстан</div>
+        <div class="marquee-item">Портфолио</div>
+        <div class="marquee-item">AI Инкубатор</div>
+        <div class="marquee-item">Центральная Азия</div>
+        <div class="marquee-item">10 недель</div>
+        <div class="marquee-item">Реальные продукты</div>
+        <div class="marquee-item">Персональный ментор</div>
+        <div class="marquee-item">Demo Day</div>
+        <div class="marquee-item">Forge</div>
+        <div class="marquee-item">Казахстан</div>
+        <div class="marquee-item">Портфолио</div>
+    </div>
 </div>
 
-<hr class="hr">
+<!-- STATS BAR -->
+<div class="stats-bar">
+    <div class="stats-bar-inner">
+        <div class="sbar-item">
+            <div class="sbar-n">10</div>
+            <div class="sbar-l">недель интенсивной программы</div>
+        </div>
+        <div class="sbar-item">
+            <div class="sbar-n">1</div>
+            <div class="sbar-l">ментор-практик на каждого участника</div>
+        </div>
+        <div class="sbar-item">
+            <div class="sbar-n">5+</div>
+            <div class="sbar-l">реальных продуктов в портфолио</div>
+        </div>
+        <div class="sbar-item">
+            <div class="sbar-n">0</div>
+            <div class="sbar-l">лишних лекций и теории ради теории</div>
+        </div>
+    </div>
+</div>
+
+<!-- MANIFESTO -->
+<div class="manifesto">
+    <div class="manifesto-text">
+        Мы не верим в курсы ради сертификата.<br>
+        Мы верим в продукты, <em>которые работают.</em>
+    </div>
+</div>
 
 <!-- ABOUT -->
-<section id="about" class="has-arc">
+<section id="about">
     <div class="wrap">
         <div class="about-grid">
             <div class="about-text">
                 <div class="label">О программе</div>
-                <h2>Что такое Forge</h2>
-                <p>Forge — это онлайн-инкубатор для тех, кто хочет не просто разобраться в ИИ, а построить на его основе что-то настоящее.</p>
-                <p>Мы работаем с людьми из Казахстана и Центральной Азии. Здесь нет бесконечных лекций и домашних заданий ради галочки. Каждый участник с первой недели строит свой продукт — под руководством ментора с реальным опытом.</p>
+                <div class="about-quote">Инкубатор —<br>не школа.</div>
+                <p>Forge — это онлайн-инкубатор для тех, кто хочет не просто разобраться в ИИ, а построить на его основе что-то настоящее. Мы работаем с людьми из Казахстана и Центральной Азии.</p>
+                <p>Здесь нет бесконечных лекций и домашних заданий ради галочки. Каждый участник с первой недели строит свой продукт — под руководством ментора с реальным опытом в индустрии.</p>
                 <p>На финале — Demo Day. Каждый участник представляет то, что создал, публично. Это и есть портфолио.</p>
             </div>
-            <div class="stats">
-                <div class="stat">
-                    <div class="stat-n">10</div>
-                    <div class="stat-l">недель программы</div>
-                </div>
-                <div class="stat">
-                    <div class="stat-n">1</div>
-                    <div class="stat-l">ментор на каждого участника</div>
-                </div>
-                <div class="stat">
-                    <div class="stat-n">5+</div>
-                    <div class="stat-l">реальных продуктов в портфолио</div>
-                </div>
-                <div class="stat">
-                    <div class="stat-n">0</div>
-                    <div class="stat-l">лишних лекций</div>
+            <div>
+                <div style="display:flex;flex-direction:column;gap:1px;border:1px solid var(--border);border-radius:12px;overflow:hidden">
+                    <div style="background:var(--green-light);padding:32px 28px">
+                        <div style="font-size:11px;font-weight:700;letter-spacing:2px;color:var(--green);text-transform:uppercase;margin-bottom:12px">Формат</div>
+                        <div style="font-size:16px;font-weight:700;margin-bottom:8px">Полностью онлайн</div>
+                        <div style="font-size:13px;color:var(--muted);line-height:1.6">Встречи в Zoom, чат потока в Telegram, материалы в Notion</div>
+                    </div>
+                    <div style="background:var(--white);padding:32px 28px;border-top:1px solid var(--border)">
+                        <div style="font-size:11px;font-weight:700;letter-spacing:2px;color:var(--green);text-transform:uppercase;margin-bottom:12px">Нагрузка</div>
+                        <div style="font-size:16px;font-weight:700;margin-bottom:8px">8–10 часов в неделю</div>
+                        <div style="font-size:13px;color:var(--muted);line-height:1.6">1 встреча с ментором + самостоятельная работа над продуктом</div>
+                    </div>
+                    <div style="background:var(--white);padding:32px 28px;border-top:1px solid var(--border)">
+                        <div style="font-size:11px;font-weight:700;letter-spacing:2px;color:var(--green);text-transform:uppercase;margin-bottom:12px">Отбор</div>
+                        <div style="font-size:16px;font-weight:700;margin-bottom:8px">Мест в потоке мало</div>
+                        <div style="font-size:13px;color:var(--muted);line-height:1.6">Короткий звонок 20–30 мин после заявки. Смотрим на мотивацию, не на опыт</div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -476,34 +432,38 @@
 <hr class="hr">
 
 <!-- FOR WHOM -->
-<section class="bg-light" id="forwho">
+<section style="background:var(--off)" id="forwho">
     <div class="wrap">
         <div class="label">Для кого</div>
         <h2>Forge подходит тебе, если</h2>
         <div class="forwho-grid">
             <div class="fw-item">
-                <div class="fw-check">
-                    <svg width="11" height="11" viewBox="0 0 11 11" fill="none"><path d="M1.5 5.5l3 3 5-5" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                <div class="fw-check"><svg width="11" height="11" viewBox="0 0 11 11" fill="none"><path d="M1.5 5.5l3 3 5-5" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+                <div class="fw-body">
+                    <div class="fw-title">Хочешь войти в AI</div>
+                    <div class="fw-text">Хочешь разобраться в ИИ и применять его на практике, а не просто "пройти курс"</div>
                 </div>
-                <div class="fw-text">Хочешь разобраться в ИИ и применять его на практике</div>
             </div>
             <div class="fw-item">
-                <div class="fw-check">
-                    <svg width="11" height="11" viewBox="0 0 11 11" fill="none"><path d="M1.5 5.5l3 3 5-5" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                <div class="fw-check"><svg width="11" height="11" viewBox="0 0 11 11" fill="none"><path d="M1.5 5.5l3 3 5-5" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+                <div class="fw-body">
+                    <div class="fw-title">Есть идея</div>
+                    <div class="fw-text">Есть идея продукта, но не знаешь с чего начать и как довести до рабочего состояния</div>
                 </div>
-                <div class="fw-text">Есть идея продукта, но не знаешь с чего начать</div>
             </div>
             <div class="fw-item">
-                <div class="fw-check">
-                    <svg width="11" height="11" viewBox="0 0 11 11" fill="none"><path d="M1.5 5.5l3 3 5-5" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                <div class="fw-check"><svg width="11" height="11" viewBox="0 0 11 11" fill="none"><path d="M1.5 5.5l3 3 5-5" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+                <div class="fw-body">
+                    <div class="fw-title">Меняешь профессию</div>
+                    <div class="fw-text">Хочешь добавить AI-навыки к текущей карьере или полностью сменить направление</div>
                 </div>
-                <div class="fw-text">Хочешь сменить профессию или добавить AI-навыки к текущей</div>
             </div>
             <div class="fw-item">
-                <div class="fw-check">
-                    <svg width="11" height="11" viewBox="0 0 11 11" fill="none"><path d="M1.5 5.5l3 3 5-5" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                <div class="fw-check"><svg width="11" height="11" viewBox="0 0 11 11" fill="none"><path d="M1.5 5.5l3 3 5-5" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+                <div class="fw-body">
+                    <div class="fw-title">Устал от курсов</div>
+                    <div class="fw-text">Проходил курсы, получал сертификаты — а реального результата не было. Здесь иначе</div>
                 </div>
-                <div class="fw-text">Устал от курсов, которые дают знания но не результат</div>
             </div>
         </div>
         <div class="fw-note">
@@ -513,49 +473,45 @@
 </section>
 
 <!-- PROGRAM -->
-<section id="program" class="has-arc">
+<section id="program">
     <div class="wrap">
         <div class="label">Программа</div>
         <h2>10 недель. Реальные продукты.<br>Конкретный результат.</h2>
         <div class="timeline">
             <div class="phase">
-                <div class="phase-meta">
-                    <div class="phase-step">Этап 01</div>
-                    <div class="phase-wk">1–2 нед.</div>
-                </div>
-                <div>
-                    <div class="phase-title">Погружение</div>
-                    <div class="phase-desc">Разбираемся что такое ИИ, какие инструменты существуют и что реально можно построить. Определяем направление вместе с ментором.</div>
-                </div>
-            </div>
-            <div class="phase">
-                <div class="phase-meta">
-                    <div class="phase-step">Этап 02</div>
-                    <div class="phase-wk">3–8 нед.</div>
-                </div>
-                <div>
-                    <div class="phase-title">Строительство</div>
-                    <div class="phase-desc">Строишь продукты итерациями. Каждую неделю — встреча с ментором, обратная связь, следующий шаг. Учишься делая, а не слушая.</div>
+                <div class="phase-num">01</div>
+                <div class="phase-inner">
+                    <div class="phase-step">Этап первый</div>
+                    <div class="phase-wk">Недели 1–2 · Погружение</div>
+                    <div class="phase-title">Нащупываем идею</div>
+                    <div class="phase-desc">Разбираемся что такое ИИ, какие инструменты существуют и что реально можно построить. Определяем направление вместе с ментором. Без лишней теории — сразу к делу.</div>
                 </div>
             </div>
             <div class="phase">
-                <div class="phase-meta">
-                    <div class="phase-step">Этап 03</div>
-                    <div class="phase-wk">9–10 нед.</div>
-                </div>
-                <div>
-                    <div class="phase-title">Финализация</div>
-                    <div class="phase-desc">Доводишь продукты до состояния которое можно показать людям. Готовишь описание и презентацию каждого.</div>
+                <div class="phase-num">02</div>
+                <div class="phase-inner">
+                    <div class="phase-step">Этап второй</div>
+                    <div class="phase-wk">Недели 3–8 · Строительство</div>
+                    <div class="phase-title">Строим итерациями</div>
+                    <div class="phase-desc">Строишь продукты итерациями. Каждую неделю — встреча с ментором, обратная связь, следующий шаг. Учишься делая, а не слушая. Каждая неделя — конкретный результат.</div>
                 </div>
             </div>
             <div class="phase">
-                <div class="phase-meta">
+                <div class="phase-num">03</div>
+                <div class="phase-inner">
+                    <div class="phase-step">Этап третий</div>
+                    <div class="phase-wk">Недели 9–10 · Финализация</div>
+                    <div class="phase-title">Доводим до готовности</div>
+                    <div class="phase-desc">Доводишь продукты до состояния которое можно показать людям. Готовишь описание и презентацию каждого. Продукт — не демо, а то что реально работает.</div>
+                </div>
+            </div>
+            <div class="phase">
+                <div class="phase-num" style="color:var(--green);opacity:.3">★</div>
+                <div class="phase-inner">
                     <div class="phase-step">Финал</div>
-                    <div class="phase-wk" style="color:var(--text)">Demo Day</div>
-                </div>
-                <div>
-                    <div class="phase-title">Публичный показ</div>
-                    <div class="phase-desc">Каждый участник представляет свои продукты онлайн, публично. Это точка, с которой начинается история как AI-строителя.</div>
+                    <div class="phase-wk">Demo Day · Публичный показ</div>
+                    <div class="phase-title">Выходишь в свет</div>
+                    <div class="phase-desc">Каждый участник представляет свои продукты онлайн, публично — в соцсетях Forge. Это точка, с которой начинается история как AI-строителя. Лучший старт для портфолио.</div>
                 </div>
             </div>
         </div>
@@ -565,53 +521,47 @@
 <hr class="hr">
 
 <!-- PRODUCTS -->
-<section class="bg-light" id="products">
+<section style="background:var(--off)" id="products">
     <div class="wrap">
         <div class="label">Примеры продуктов</div>
         <h2>Что строят участники</h2>
         <p class="section-lead">Каждый участник строит несколько продуктов — под свои идеи и цели.</p>
         <div class="products-grid">
             <div class="p-card">
-                <div class="p-icon">
-                    <svg viewBox="0 0 40 40" fill="none"><rect x="5" y="9" width="30" height="20" rx="4" stroke="#006039" stroke-width="1.7"/><path d="M13 17h14M13 22h9" stroke="#006039" stroke-width="1.7" stroke-linecap="round"/><path d="M14 29l-4 6M26 29l4 6" stroke="#006039" stroke-width="1.7" stroke-linecap="round"/><circle cx="28" cy="7" r="4" fill="#006039"/><circle cx="28" cy="7" r="1.5" fill="white"/></svg>
-                </div>
+                <div class="p-tag">Бизнес</div>
+                <div class="p-icon"><svg viewBox="0 0 40 40" fill="none"><rect x="5" y="9" width="30" height="20" rx="4" stroke="#006039" stroke-width="1.7"/><path d="M13 17h14M13 22h9" stroke="#006039" stroke-width="1.7" stroke-linecap="round"/><path d="M14 29l-4 6M26 29l4 6" stroke="#006039" stroke-width="1.7" stroke-linecap="round"/><circle cx="28" cy="7" r="4" fill="#006039"/><circle cx="28" cy="7" r="1.5" fill="white"/></svg></div>
                 <div class="p-title">Чат-бот для бизнеса</div>
                 <div class="p-desc">Отвечает на вопросы клиентов и принимает заявки 24/7 без участия человека</div>
             </div>
             <div class="p-card">
-                <div class="p-icon">
-                    <svg viewBox="0 0 40 40" fill="none"><circle cx="20" cy="20" r="13" stroke="#006039" stroke-width="1.7"/><path d="M20 13v7l5 3" stroke="#006039" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/><path d="M7 20h4M29 20h4M20 7v4M20 29v4" stroke="#006039" stroke-width="1.7" stroke-linecap="round"/></svg>
-                </div>
+                <div class="p-tag">Ниша</div>
+                <div class="p-icon"><svg viewBox="0 0 40 40" fill="none"><circle cx="20" cy="20" r="13" stroke="#006039" stroke-width="1.7"/><path d="M20 13v7l5 3" stroke="#006039" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/><path d="M7 20h4M29 20h4M20 7v4M20 29v4" stroke="#006039" stroke-width="1.7" stroke-linecap="round"/></svg></div>
                 <div class="p-title">ИИ-ассистент для ниши</div>
                 <div class="p-desc">Юрист, врач, бухгалтер — отвечает на типовые вопросы в конкретной области</div>
             </div>
             <div class="p-card">
-                <div class="p-icon">
-                    <svg viewBox="0 0 40 40" fill="none"><circle cx="20" cy="20" r="5" stroke="#006039" stroke-width="1.7"/><path d="M20 7v4M20 29v4M7 20h4M29 20h4M11 11l2.8 2.8M26.2 26.2l2.8 2.8M29 11l-2.8 2.8M13.8 26.2l-2.8 2.8" stroke="#006039" stroke-width="1.7" stroke-linecap="round"/></svg>
-                </div>
+                <div class="p-tag">Автоматизация</div>
+                <div class="p-icon"><svg viewBox="0 0 40 40" fill="none"><circle cx="20" cy="20" r="5" stroke="#006039" stroke-width="1.7"/><path d="M20 7v4M20 29v4M7 20h4M29 20h4M11 11l2.8 2.8M26.2 26.2l2.8 2.8M29 11l-2.8 2.8M13.8 26.2l-2.8 2.8" stroke="#006039" stroke-width="1.7" stroke-linecap="round"/></svg></div>
                 <div class="p-title">Автоматизация рутины</div>
                 <div class="p-desc">Парсинг данных, генерация отчётов, обработка документов — без ручного труда</div>
             </div>
             <div class="p-card">
-                <div class="p-icon">
-                    <svg viewBox="0 0 40 40" fill="none"><path d="M20 7c-5.5 0-10 4.5-10 10 0 3.5 1.8 6.5 4.5 8.3V28h11v-2.7C28.2 23.5 30 20.5 30 17c0-5.5-4.5-10-10-10z" stroke="#006039" stroke-width="1.7" stroke-linejoin="round"/><path d="M15 32h10M16.5 35.5h7" stroke="#006039" stroke-width="1.7" stroke-linecap="round"/></svg>
-                </div>
+                <div class="p-tag">Инструмент</div>
+                <div class="p-icon"><svg viewBox="0 0 40 40" fill="none"><path d="M20 7c-5.5 0-10 4.5-10 10 0 3.5 1.8 6.5 4.5 8.3V28h11v-2.7C28.2 23.5 30 20.5 30 17c0-5.5-4.5-10-10-10z" stroke="#006039" stroke-width="1.7" stroke-linejoin="round"/><path d="M15 32h10M16.5 35.5h7" stroke="#006039" stroke-width="1.7" stroke-linecap="round"/></svg></div>
                 <div class="p-title">Инструмент под задачу</div>
                 <div class="p-desc">Продукт под конкретную проблему участника — в его работе, бизнесе или жизни</div>
             </div>
             <div class="p-card">
-                <div class="p-icon">
-                    <svg viewBox="0 0 40 40" fill="none"><rect x="7" y="7" width="26" height="18" rx="3" stroke="#006039" stroke-width="1.7"/><path d="M7 25h26" stroke="#006039" stroke-width="1.7"/><path d="M16 30h8" stroke="#006039" stroke-width="1.7" stroke-linecap="round"/><path d="M14 15h12M14 19h8" stroke="#006039" stroke-width="1.7" stroke-linecap="round"/></svg>
-                </div>
+                <div class="p-tag">SaaS</div>
+                <div class="p-icon"><svg viewBox="0 0 40 40" fill="none"><rect x="7" y="7" width="26" height="18" rx="3" stroke="#006039" stroke-width="1.7"/><path d="M7 25h26M16 30h8" stroke="#006039" stroke-width="1.7" stroke-linecap="round"/><path d="M14 15h12M14 19h8" stroke="#006039" stroke-width="1.7" stroke-linecap="round"/></svg></div>
                 <div class="p-title">SaaS-приложение с ИИ</div>
-                <div class="p-desc">Веб-сервис с подпиской, реальными пользователями и ИИ-функциональностью внутри</div>
+                <div class="p-desc">Веб-сервис с подпиской, реальными пользователями и ИИ внутри</div>
             </div>
             <div class="p-card">
-                <div class="p-icon">
-                    <svg viewBox="0 0 40 40" fill="none"><rect x="9" y="5" width="22" height="30" rx="4" stroke="#006039" stroke-width="1.7"/><path d="M15 13h10M15 18h10M15 23h7" stroke="#006039" stroke-width="1.7" stroke-linecap="round"/><circle cx="20" cy="31" r="1.5" fill="#006039"/></svg>
-                </div>
-                <div class="p-title">Телеграм-бот / мини-приложение</div>
-                <div class="p-desc">Бот с ИИ внутри для Telegram — один из самых быстрых путей до реальных пользователей</div>
+                <div class="p-tag">Telegram</div>
+                <div class="p-icon"><svg viewBox="0 0 40 40" fill="none"><rect x="9" y="5" width="22" height="30" rx="4" stroke="#006039" stroke-width="1.7"/><path d="M15 13h10M15 18h10M15 23h7" stroke="#006039" stroke-width="1.7" stroke-linecap="round"/><circle cx="20" cy="31" r="1.5" fill="#006039"/></svg></div>
+                <div class="p-title">Телеграм-бот</div>
+                <div class="p-desc">Бот с ИИ внутри — один из самых быстрых путей до реальных пользователей</div>
             </div>
         </div>
     </div>
@@ -620,71 +570,50 @@
 <hr class="hr">
 
 <!-- MENTORS -->
-<section id="mentors" class="has-arc">
+<section id="mentors">
     <div class="wrap">
-        <div class="label">Менторы</div>
-        <h2>Практики, не теоретики</h2>
-        <p class="mentors-text">Наши менторы — это люди, которые сами строили продукты на ИИ, запускали стартапы и знают как это работает изнутри.</p>
-        <p class="mentors-text">За каждым участником закрепляется один ментор на весь поток. Еженедельные встречи, разбор конкретных задач — без шаблонных советов.</p>
-        <div class="mentor-card">
-            <div class="m-avatar">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-                    <rect x="7" y="10" width="10" height="9" rx="2" stroke="#006039" stroke-width="1.5"/>
-                    <path d="M9 10V7a3 3 0 016 0v3" stroke="#006039" stroke-width="1.5" stroke-linecap="round"/>
-                    <circle cx="12" cy="15" r="1.2" fill="#006039"/>
-                </svg>
+        <div class="mentor-split">
+            <div class="mentor-text">
+                <div class="label">Менторы</div>
+                <h2>Практики,<br>не теоретики</h2>
+                <p>Наши менторы — это люди, которые сами строили продукты на ИИ, запускали стартапы и знают как это работает изнутри.</p>
+                <p>За каждым участником закрепляется один ментор на весь поток. Еженедельные встречи, разбор конкретных задач — без шаблонных советов и общих слов.</p>
             </div>
-            <div>
-                <div class="m-name">Менторы программы</div>
-                <div class="m-role">Объявляем при открытии набора</div>
-                <div class="m-badge">FORGE · MENTOR</div>
+            <div class="mentor-card">
+                <div class="mentor-card-top">
+                    <div class="m-avatar">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><rect x="7" y="10" width="10" height="9" rx="2" stroke="#006039" stroke-width="1.5"/><path d="M9 10V7a3 3 0 016 0v3" stroke="#006039" stroke-width="1.5" stroke-linecap="round"/><circle cx="12" cy="15" r="1.2" fill="#006039"/></svg>
+                    </div>
+                    <div>
+                        <div class="m-name">Менторы программы</div>
+                        <div class="m-role">Объявляем при открытии набора</div>
+                        <div class="m-badge">FORGE · MENTOR</div>
+                    </div>
+                </div>
+                <div class="mentor-card-body">Менторы — практикующие специалисты с опытом в AI-продуктах и стартапах. Не преподаватели — люди которые сами строили то, чему учат.</div>
             </div>
         </div>
     </div>
 </section>
 
 <!-- BENEFITS -->
-<section class="bg-light" id="benefits">
+<section style="background:var(--off)" id="benefits">
     <div class="wrap">
         <div class="label">Что ты получаешь</div>
         <h2>Больше, чем курс</h2>
         <div class="ben-grid">
-            <div class="ben-item">
-                <div class="ben-n">01</div>
-                <div class="ben-t">Личный ментор</div>
-                <div class="ben-d">Один ментор закреплён за тобой на весь поток. Еженедельные встречи, обратная связь на твои продукты</div>
-            </div>
-            <div class="ben-item">
-                <div class="ben-n">02</div>
-                <div class="ben-t">Команда рядом</div>
-                <div class="ben-d">Закрытый чат потока — все строят вместе с тобой. Не один на один с задачей</div>
-            </div>
-            <div class="ben-item">
-                <div class="ben-n">03</div>
-                <div class="ben-t">Портфолио продуктов</div>
-                <div class="ben-d">Несколько работающих продуктов которые можно показать или монетизировать</div>
-            </div>
-            <div class="ben-item">
-                <div class="ben-n">04</div>
-                <div class="ben-t">Demo Day</div>
-                <div class="ben-d">Публичный показ продуктов — первая точка на карте как AI-строителя</div>
-            </div>
-            <div class="ben-item">
-                <div class="ben-n">05</div>
-                <div class="ben-t">Нетворкинг</div>
-                <div class="ben-d">Доступ к сети менторов и выпускников Forge — контакты которые работают после программы</div>
-            </div>
-            <div class="ben-item">
-                <div class="ben-n">06</div>
-                <div class="ben-t">Сертификат</div>
-                <div class="ben-d">Сертификат участника программы Forge — с реальными проектами за спиной</div>
-            </div>
+            <div class="ben-item"><div class="ben-n">01</div><div class="ben-t">Личный ментор</div><div class="ben-d">Один ментор закреплён за тобой на весь поток. Еженедельные встречи, обратная связь на твои продукты</div></div>
+            <div class="ben-item"><div class="ben-n">02</div><div class="ben-t">Команда рядом</div><div class="ben-d">Закрытый чат потока — все строят вместе с тобой. Не один на один с задачей</div></div>
+            <div class="ben-item"><div class="ben-n">03</div><div class="ben-t">Портфолио продуктов</div><div class="ben-d">Несколько работающих продуктов которые можно показать или монетизировать</div></div>
+            <div class="ben-item"><div class="ben-n">04</div><div class="ben-t">Demo Day</div><div class="ben-d">Публичный показ продуктов — первая точка на карте как AI-строителя</div></div>
+            <div class="ben-item"><div class="ben-n">05</div><div class="ben-t">Нетворкинг</div><div class="ben-d">Доступ к сети менторов и выпускников Forge — контакты которые работают после программы</div></div>
+            <div class="ben-item"><div class="ben-n">06</div><div class="ben-t">Сертификат</div><div class="ben-d">Сертификат участника программы Forge — с реальными проектами за спиной</div></div>
         </div>
     </div>
 </section>
 
 <!-- COMPARE -->
-<section id="compare" class="has-arc">
+<section id="compare">
     <div class="wrap">
         <div class="label">Сравнение</div>
         <h2>Почему Forge, а не курс</h2>
@@ -694,74 +623,39 @@
                 <div class="cmp-hcell">Обычный курс</div>
                 <div class="cmp-hcell forge-col">Forge</div>
             </div>
-            <div class="cmp-row">
-                <div class="cmp-cell feat">Формат</div>
-                <div class="cmp-cell">Лекции и тесты</div>
-                <div class="cmp-cell forge-col">Строишь реальные продукты</div>
-            </div>
-            <div class="cmp-row">
-                <div class="cmp-cell feat">Внимание</div>
-                <div class="cmp-cell">Общий поток без внимания</div>
-                <div class="cmp-cell forge-col">Один ментор на одного участника</div>
-            </div>
-            <div class="cmp-row">
-                <div class="cmp-cell feat">Результат</div>
-                <div class="cmp-cell">Сертификат об окончании</div>
-                <div class="cmp-cell forge-col">Портфолио из работающих продуктов</div>
-            </div>
-            <div class="cmp-row">
-                <div class="cmp-cell feat">Применение</div>
-                <div class="cmp-cell">Знания без применения</div>
-                <div class="cmp-cell forge-col">Результат с первой недели</div>
-            </div>
-            <div class="cmp-row">
-                <div class="cmp-cell feat">Публичность</div>
-                <div class="cmp-cell">Никто не видит прогресс</div>
-                <div class="cmp-cell forge-col">Demo Day — публичный показ</div>
-            </div>
+            <div class="cmp-row"><div class="cmp-cell feat">Формат</div><div class="cmp-cell">Лекции и тесты</div><div class="cmp-cell forge-col">Строишь реальные продукты</div></div>
+            <div class="cmp-row"><div class="cmp-cell feat">Внимание</div><div class="cmp-cell">Общий поток без внимания</div><div class="cmp-cell forge-col">Один ментор на одного участника</div></div>
+            <div class="cmp-row"><div class="cmp-cell feat">Результат</div><div class="cmp-cell">Сертификат об окончании</div><div class="cmp-cell forge-col">Портфолио из работающих продуктов</div></div>
+            <div class="cmp-row"><div class="cmp-cell feat">Применение</div><div class="cmp-cell">Знания без применения</div><div class="cmp-cell forge-col">Результат с первой недели</div></div>
+            <div class="cmp-row"><div class="cmp-cell feat">Публичность</div><div class="cmp-cell">Никто не видит прогресс</div><div class="cmp-cell forge-col">Demo Day — публичный показ</div></div>
         </div>
     </div>
 </section>
 
 <!-- FAQ -->
-<section class="bg-light" id="faq">
+<section style="background:var(--off)" id="faq">
     <div class="wrap">
         <div class="label">FAQ</div>
         <h2>Часто задаваемые вопросы</h2>
         <div class="faq-list">
             <div class="faq-item">
-                <button class="faq-btn" onclick="toggleFAQ(this)">
-                    <span class="faq-q">Нужен ли опыт в программировании?</span>
-                    <div class="faq-ico"><svg width="11" height="11" viewBox="0 0 11 11" fill="none"><path d="M5.5 1v9M1 5.5h9" stroke="#006039" stroke-width="1.5" stroke-linecap="round"/></svg></div>
-                </button>
+                <button class="faq-btn" onclick="toggleFAQ(this)"><span class="faq-q">Нужен ли опыт в программировании?</span><div class="faq-ico"><svg width="11" height="11" viewBox="0 0 11 11" fill="none"><path d="M5.5 1v9M1 5.5h9" stroke="#006039" stroke-width="1.5" stroke-linecap="round"/></svg></div></button>
                 <div class="faq-ans"><div class="faq-ans-inner">Нет. Современные ИИ-инструменты позволяют строить продукты без глубоких технических знаний. Ментор поможет выбрать подходящий стек под твой уровень.</div></div>
             </div>
             <div class="faq-item">
-                <button class="faq-btn" onclick="toggleFAQ(this)">
-                    <span class="faq-q">Сколько времени нужно в неделю?</span>
-                    <div class="faq-ico"><svg width="11" height="11" viewBox="0 0 11 11" fill="none"><path d="M5.5 1v9M1 5.5h9" stroke="#006039" stroke-width="1.5" stroke-linecap="round"/></svg></div>
-                </button>
-                <div class="faq-ans"><div class="faq-ans-inner">Минимум 8–10 часов. Одна встреча с ментором плюс самостоятельная работа над продуктами. Чем больше вкладываешь — тем сильнее портфолио на выходе.</div></div>
+                <button class="faq-btn" onclick="toggleFAQ(this)"><span class="faq-q">Сколько времени нужно в неделю?</span><div class="faq-ico"><svg width="11" height="11" viewBox="0 0 11 11" fill="none"><path d="M5.5 1v9M1 5.5h9" stroke="#006039" stroke-width="1.5" stroke-linecap="round"/></svg></div></button>
+                <div class="faq-ans"><div class="faq-ans-inner">Минимум 8–10 часов. Одна встреча с ментором плюс самостоятельная работа. Чем больше вкладываешь — тем сильнее портфолио на выходе.</div></div>
             </div>
             <div class="faq-item">
-                <button class="faq-btn" onclick="toggleFAQ(this)">
-                    <span class="faq-q">Программа полностью онлайн?</span>
-                    <div class="faq-ico"><svg width="11" height="11" viewBox="0 0 11 11" fill="none"><path d="M5.5 1v9M1 5.5h9" stroke="#006039" stroke-width="1.5" stroke-linecap="round"/></svg></div>
-                </button>
+                <button class="faq-btn" onclick="toggleFAQ(this)"><span class="faq-q">Программа полностью онлайн?</span><div class="faq-ico"><svg width="11" height="11" viewBox="0 0 11 11" fill="none"><path d="M5.5 1v9M1 5.5h9" stroke="#006039" stroke-width="1.5" stroke-linecap="round"/></svg></div></button>
                 <div class="faq-ans"><div class="faq-ans-inner">Да, полностью онлайн. Участвовать можно из любой точки — главное часовой пояс СНГ для удобства встреч с ментором.</div></div>
             </div>
             <div class="faq-item">
-                <button class="faq-btn" onclick="toggleFAQ(this)">
-                    <span class="faq-q">Как проходит отбор?</span>
-                    <div class="faq-ico"><svg width="11" height="11" viewBox="0 0 11 11" fill="none"><path d="M5.5 1v9M1 5.5h9" stroke="#006039" stroke-width="1.5" stroke-linecap="round"/></svg></div>
-                </button>
-                <div class="faq-ans"><div class="faq-ans-inner">После заявки — короткий звонок на 20–30 минут. Смотрим не на опыт, а на мотивацию: зачем тебе это и что ты готов строить. Отбор есть — это делает программу сильнее для всех участников.</div></div>
+                <button class="faq-btn" onclick="toggleFAQ(this)"><span class="faq-q">Как проходит отбор?</span><div class="faq-ico"><svg width="11" height="11" viewBox="0 0 11 11" fill="none"><path d="M5.5 1v9M1 5.5h9" stroke="#006039" stroke-width="1.5" stroke-linecap="round"/></svg></div></button>
+                <div class="faq-ans"><div class="faq-ans-inner">После заявки — короткий звонок на 20–30 минут. Смотрим не на опыт, а на мотивацию. Отбор есть — это делает программу сильнее для всех участников.</div></div>
             </div>
             <div class="faq-item">
-                <button class="faq-btn" onclick="toggleFAQ(this)">
-                    <span class="faq-q">Когда следующий набор?</span>
-                    <div class="faq-ico"><svg width="11" height="11" viewBox="0 0 11 11" fill="none"><path d="M5.5 1v9M1 5.5h9" stroke="#006039" stroke-width="1.5" stroke-linecap="round"/></svg></div>
-                </button>
+                <button class="faq-btn" onclick="toggleFAQ(this)"><span class="faq-q">Когда следующий набор?</span><div class="faq-ico"><svg width="11" height="11" viewBox="0 0 11 11" fill="none"><path d="M5.5 1v9M1 5.5h9" stroke="#006039" stroke-width="1.5" stroke-linecap="round"/></svg></div></button>
                 <div class="faq-ans"><div class="faq-ans-inner">Оставь заявку — мы свяжемся когда откроется набор. Мест в потоке мало, работаем только с теми, кому это реально нужно.</div></div>
             </div>
         </div>
@@ -773,7 +667,7 @@
     <div class="wrap">
         <h2>Готов строить?</h2>
         <p class="cta-sub">Первый шаг — оставить заявку. Мы свяжемся, познакомимся и расскажем всё подробнее. Мест в потоке мало.</p>
-        <a href="apply.html" class="btn-white">Подать заявку</a>
+        <a href="apply.html" class="btn-white">Подать заявку →</a>
     </div>
 </section>
 
@@ -787,7 +681,7 @@
         <div>
             <div class="foot-contact-label">Контакт</div>
             <a href="mailto:Forgeincubator@gmail.com" class="foot-email">
-                <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><rect x="1" y="3" width="12" height="8" rx="2" stroke="rgba(255,255,255,0.5)" stroke-width="1.2"/><path d="M1 5l6 3.5L13 5" stroke="rgba(255,255,255,0.5)" stroke-width="1.2" stroke-linecap="round"/></svg>
+                <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><rect x="1" y="3" width="12" height="8" rx="2" stroke="rgba(255,255,255,0.4)" stroke-width="1.2"/><path d="M1 5l6 3.5L13 5" stroke="rgba(255,255,255,0.4)" stroke-width="1.2" stroke-linecap="round"/></svg>
                 Forgeincubator@gmail.com
             </a>
         </div>
@@ -807,45 +701,40 @@
             el.classList.remove('open');
             el.querySelector('.faq-ans').style.maxHeight = '0';
         });
-        if (!isOpen) {
-            item.classList.add('open');
-            ans.style.maxHeight = ans.scrollHeight + 'px';
-        }
+        if (!isOpen) { item.classList.add('open'); ans.style.maxHeight = ans.scrollHeight + 'px'; }
     }
 
     (function () {
         const sel = [
-            '.hero-badge','h1','.hero-tagline','.hero-desc','.hero-btns',
+            '.hero-badge','.hero-title','.hero-tagline','.hero-desc','.hero-btns',
+            '.sbar-item','.manifesto-text',
             '.label','section h2','.section-lead',
-            '.about-text p','.mentors-text',
-            '.stat','.fw-item','.phase',
-            '.p-card','.ben-item',
-            '.cmp-head','.cmp-row',
-            '.faq-item',
-            '.mentor-card',
-            '.cta-block h2','.cta-sub','.btn-white',
-            '.foot-logo','.foot-tagline','.foot-email','.foot-contact-label'
+            '.about-text p','.about-quote','.mentor-text p',
+            '.fw-item','.phase','.p-card','.ben-item',
+            '.cmp-head','.cmp-row','.faq-item',
+            '.mentor-card','.cta-block h2','.cta-sub','.btn-white',
+            '.foot-logo','.foot-tagline','.foot-email'
         ];
         sel.forEach(s => document.querySelectorAll(s).forEach(el => el.classList.add('anim')));
         [
-            { p:'.hero',          s:110 },
-            { p:'.stats',         s:80  },
-            { p:'.forwho-grid',   s:70  },
-            { p:'.timeline',      s:90  },
-            { p:'.products-grid', s:60  },
-            { p:'.ben-grid',      s:60  },
-            { p:'.cmp-table',     s:50  },
-            { p:'.faq-list',      s:45  },
-            { p:'.about-text',    s:80  },
-            { p:'.foot-top',      s:120 },
+            {p:'.hero-section', s:100},
+            {p:'.stats-bar-inner', s:80},
+            {p:'.forwho-grid', s:70},
+            {p:'.timeline', s:90},
+            {p:'.products-grid', s:55},
+            {p:'.ben-grid', s:55},
+            {p:'.cmp-table', s:50},
+            {p:'.faq-list', s:45},
+            {p:'.about-grid', s:80},
+            {p:'.mentor-split', s:100},
         ].forEach(({p,s}) => {
             const el = document.querySelector(p);
             if (!el) return;
             el.querySelectorAll('.anim').forEach((c,i) => c.style.transitionDelay = (i*s)+'ms');
         });
         const obs = new IntersectionObserver(entries => {
-            entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); obs.unobserve(e.target); } });
-        }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+            entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); obs.unobserve(e.target); }});
+        }, {threshold: 0.08, rootMargin: '0px 0px -30px 0px'});
         document.querySelectorAll('.anim').forEach(el => obs.observe(el));
     })();
 </script>
