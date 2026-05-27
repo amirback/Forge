@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Подать заявку — Forge AI Incubator</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --green: #006039;
+            --green-hover: #004d2d;
+            --green-light: #e6f0eb;
+            --white: #ffffff;
+            --off-white: #f8f8f6;
+            --text: #0a0a0a;
+            --muted: #6b6b6b;
+            --border: #e4e4e0;
+            --error: #c0392b;
+        }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', sans-serif;
+            color: var(--text);
+            background: var(--white);
+            -webkit-font-smoothing: antialiased;
+            min-height: 100vh;
+        }
+
+        /* NAV */
+        nav {
+            position: sticky; top: 0; z-index: 100;
+            background: rgba(255,255,255,0.95);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border);
+            height: 60px;
+            display: flex; align-items: center; justify-content: space-between;
+            padding: 0 32px;
+        }
+        .nav-logo {
+            font-size: 18px; font-weight: 800; letter-spacing: -0.5px;
+            color: var(--text); text-decoration: none;
+        }
+        .nav-logo em { color: var(--green); font-style: normal; }
+        .nav-back {
+            font-size: 14px; color: var(--muted); text-decoration: none;
+            font-weight: 500; display: flex; align-items: center; gap: 6px;
+            transition: color .2s;
+        }
+        .nav-back:hover { color: var(--text); }
+
+        /* LAYOUT */
+        .page {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            min-height: calc(100vh - 60px);
+        }
+
+        /* LEFT PANEL */
+        .left {
+            background: var(--text);
+            padding: 72px 56px;
+            display: flex; flex-direction: column; justify-content: space-between;
+            position: sticky; top: 60px; height: calc(100vh - 60px);
+            overflow: hidden;
+        }
+        .left-content {}
+        .left-label {
+            font-size: 11px; font-weight: 700; letter-spacing: 2.5px;
+            text-transform: uppercase; color: #4db87a; margin-bottom: 20px;
+        }
+        .left h1 {
+            font-size: clamp(36px, 4vw, 56px); font-weight: 900;
+            letter-spacing: -3px; line-height: 1; color: white; margin-bottom: 20px;
+        }
+        .left-sub {
+            font-size: 16px; color: #888; line-height: 1.7; max-width: 380px; margin-bottom: 48px;
+        }
+        .left-points { display: flex; flex-direction: column; gap: 14px; }
+        .lp-item {
+            display: flex; align-items: center; gap: 12px;
+        }
+        .lp-dot {
+            width: 8px; height: 8px; border-radius: 50%;
+            background: var(--green); flex-shrink: 0;
+        }
+        .lp-text { font-size: 14px; color: #777; }
+        .left-foot {
+            font-size: 12px; color: #333; letter-spacing: 0.5px;
+        }
+
+        /* RIGHT PANEL */
+        .right {
+            padding: 72px 56px;
+            background: var(--white);
+            overflow-y: auto;
+        }
+        .form-head {
+            margin-bottom: 44px;
+        }
+        .form-step-label {
+            font-size: 11px; font-weight: 700; letter-spacing: 2px;
+            text-transform: uppercase; color: var(--green); margin-bottom: 10px;
+        }
+        .form-head h2 {
+            font-size: 28px; font-weight: 800; letter-spacing: -1px; margin-bottom: 8px;
+        }
+        .form-head p {
+            font-size: 14px; color: var(--muted); line-height: 1.6;
+        }
+
+        /* FORM */
+        form { display: flex; flex-direction: column; gap: 0; }
+
+        .form-section {
+            margin-bottom: 36px;
+        }
+        .form-section-title {
+            font-size: 11px; font-weight: 700; letter-spacing: 2px;
+            text-transform: uppercase; color: var(--muted);
+            padding-bottom: 14px; border-bottom: 1px solid var(--border);
+            margin-bottom: 24px;
+        }
+
+        .field-group { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+        .field { display: flex; flex-direction: column; gap: 7px; margin-bottom: 16px; }
+        .field:last-child { margin-bottom: 0; }
+
+        label {
+            font-size: 13px; font-weight: 600; color: var(--text);
+        }
+        label span {
+            color: var(--green); margin-left: 2px;
+        }
+
+        input, select, textarea {
+            font-family: 'Inter', sans-serif;
+            font-size: 15px; color: var(--text);
+            background: var(--off-white);
+            border: 1.5px solid transparent;
+            border-radius: 8px;
+            padding: 13px 16px;
+            outline: none;
+            transition: border-color .2s, background .2s;
+            width: 100%;
+            -webkit-appearance: none;
+        }
+        input::placeholder, textarea::placeholder { color: #bbb; }
+        input:focus, select:focus, textarea:focus {
+            border-color: var(--green);
+            background: white;
+        }
+        select {
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath d='M2 4l4 4 4-4' stroke='%236b6b6b' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round' fill='none'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 16px center;
+            padding-right: 40px;
+            cursor: pointer;
+        }
+        textarea { resize: vertical; min-height: 100px; line-height: 1.6; }
+
+        /* RADIO CARDS */
+        .radio-group { display: flex; flex-direction: column; gap: 8px; }
+        .radio-card { display: flex; align-items: flex-start; gap: 12px; cursor: pointer; }
+        .radio-card input[type="radio"] {
+            width: 18px; height: 18px; flex-shrink: 0; margin-top: 2px;
+            accent-color: var(--green); cursor: pointer;
+            background: var(--off-white); padding: 0;
+        }
+        .radio-card-body {
+            flex: 1; padding: 14px 16px;
+            border: 1.5px solid var(--border); border-radius: 8px;
+            cursor: pointer; transition: border-color .2s;
+        }
+        .radio-card input[type="radio"]:checked + .radio-card-body {
+            border-color: var(--green); background: var(--green-light);
+        }
+        .rc-label { font-size: 14px; font-weight: 600; margin-bottom: 2px; }
+        .rc-desc { font-size: 12px; color: var(--muted); line-height: 1.4; }
+
+        /* HINT */
+        .hint { font-size: 12px; color: var(--muted); margin-top: 5px; line-height: 1.5; }
+
+        /* CHAR COUNT */
+        .field-footer { display: flex; justify-content: flex-end; margin-top: 4px; }
+        .char-count { font-size: 11px; color: var(--muted); }
+
+        /* SUBMIT */
+        .submit-section {
+            margin-top: 8px;
+            padding-top: 28px;
+            border-top: 1px solid var(--border);
+        }
+        .submit-note {
+            font-size: 13px; color: var(--muted); margin-bottom: 20px; line-height: 1.6;
+        }
+        .submit-note strong { color: var(--text); }
+        button[type="submit"] {
+            width: 100%;
+            background: var(--green); color: white;
+            border: none; border-radius: 8px;
+            padding: 16px; font-size: 15px; font-weight: 700;
+            font-family: 'Inter', sans-serif;
+            cursor: pointer; transition: background .2s, transform .15s;
+            letter-spacing: -0.2px;
+        }
+        button[type="submit"]:hover { background: var(--green-hover); transform: translateY(-1px); }
+        button[type="submit"]:active { transform: translateY(0); }
+
+        /* SUCCESS STATE */
+        .success-screen {
+            display: none;
+            flex-direction: column;
+            align-items: center; justify-content: center;
+            text-align: center;
+            padding: 40px 20px;
+            min-height: 60vh;
+        }
+        .success-icon {
+            width: 72px; height: 72px; border-radius: 50%;
+            background: var(--green-light);
+            display: flex; align-items: center; justify-content: center;
+            margin-bottom: 24px;
+        }
+        .success-title {
+            font-size: 26px; font-weight: 800; letter-spacing: -1px; margin-bottom: 12px;
+        }
+        .success-desc {
+            font-size: 15px; color: var(--muted); line-height: 1.7; max-width: 380px;
+        }
+        .success-back {
+            margin-top: 32px;
+            display: inline-block;
+            font-size: 14px; font-weight: 600; color: var(--green);
+            text-decoration: none; border-bottom: 1px solid var(--green-light);
+            padding-bottom: 2px; transition: border-color .2s;
+        }
+        .success-back:hover { border-color: var(--green); }
+
+        /* RESPONSIVE */
+        @media (max-width: 900px) {
+            .page { grid-template-columns: 1fr; }
+            .left {
+                position: static; height: auto; min-height: unset;
+                padding: 56px 32px 48px;
+            }
+            .left-foot { margin-top: 40px; }
+            .right { padding: 48px 32px; }
+        }
+
+        @media (max-width: 600px) {
+            nav { padding: 0 20px; }
+            .left { padding: 48px 20px 40px; }
+            .right { padding: 40px 20px; }
+            .field-group { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+    <a href="index.html" class="nav-logo">Forge<em>.</em></a>
+    <a href="index.html" class="nav-back">
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+            <path d="M9 2L4 7l5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        На главную
+    </a>
+</nav>
+
+<div class="page">
+
+    <!-- LEFT -->
+    <div class="left">
+        <div class="left-content">
+            <div class="left-label">Forge AI Incubator</div>
+            <h1>Начни строить</h1>
+            <p class="left-sub">Заявка занимает 3 минуты. Мы свяжемся с тобой в течение 48 часов для короткого знакомства.</p>
+            <div class="left-points">
+                <div class="lp-item">
+                    <div class="lp-dot"></div>
+                    <div class="lp-text">10 недель интенсивной работы над продуктом</div>
+                </div>
+                <div class="lp-item">
+                    <div class="lp-dot"></div>
+                    <div class="lp-text">Персональный ментор-практик с опытом в индустрии</div>
+                </div>
+                <div class="lp-item">
+                    <div class="lp-dot"></div>
+                    <div class="lp-text">Demo Day — публичный показ твоего продукта</div>
+                </div>
+                <div class="lp-item">
+                    <div class="lp-dot"></div>
+                    <div class="lp-text">Отбор есть. Мест мало. Качество потока — главное</div>
+                </div>
+            </div>
+        </div>
+        <div class="left-foot">AI Incubator · Central Asia · forge.kz</div>
+    </div>
+
+    <!-- RIGHT -->
+    <div class="right">
+        <div class="form-head">
+            <div class="form-step-label">Заявка на участие</div>
+            <h2>Расскажи о себе</h2>
+            <p>Нет правильных или неправильных ответов. Нам важно понять кто ты и что ты хочешь построить.</p>
+        </div>
+
+        <form id="applyForm" action="https://formspree.io/f/xwvzwgkv" method="POST" onsubmit="handleSubmit(event)" novalidate>
+
+            <!-- PERSONAL -->
+            <div class="form-section">
+                <div class="form-section-title">Личное</div>
+                <div class="field-group">
+                    <div class="field">
+                        <label>Имя <span>*</span></label>
+                        <input type="text" name="Имя" placeholder="Алибек" required>
+                    </div>
+                    <div class="field">
+                        <label>Фамилия</label>
+                        <input type="text" name="Фамилия" placeholder="Жаксыбеков">
+                    </div>
+                </div>
+                <div class="field-group">
+                    <div class="field">
+                        <label>Email <span>*</span></label>
+                        <input type="email" name="email" placeholder="alibek@mail.kz" required>
+                    </div>
+                    <div class="field">
+                        <label>Телефон / Telegram <span>*</span></label>
+                        <input type="text" name="Телефон/Telegram" placeholder="+7 700 000 00 00 или @username" required>
+                    </div>
+                </div>
+                <div class="field-group">
+                    <div class="field">
+                        <label>Город</label>
+                        <input type="text" name="Город" placeholder="Алматы, Астана, Шымкент...">
+                    </div>
+                    <div class="field">
+                        <label>Чем занимаешься сейчас?</label>
+                        <select name="Занятость">
+                            <option value="" disabled selected>Выбери вариант</option>
+                            <option>Студент</option>
+                            <option>Работаю в найме (не IT)</option>
+                            <option>Работаю в IT</option>
+                            <option>Фрилансер</option>
+                            <option>Предприниматель</option>
+                            <option>В поиске работы</option>
+                            <option>Другое</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <!-- IDEA -->
+            <div class="form-section">
+                <div class="form-section-title">Идея и цели</div>
+                <div class="field">
+                    <label>Какую проблему хочешь решить с помощью ИИ? <span>*</span></label>
+                    <textarea id="ideaText" name="Идея/Проблема" placeholder="Опиши своими словами. Нет идеи — тоже нормально, напиши в какой сфере тебя интересует ИИ. Ментор поможет нащупать направление." rows="4" oninput="countChars('ideaText', 'ideaCount', 500)" required></textarea>
+                    <div class="field-footer"><span class="char-count" id="ideaCount">0 / 500</span></div>
+                </div>
+                <div class="field">
+                    <label>Почему Forge, а не другой курс? <span>*</span></label>
+                    <textarea id="whyText" name="Почему Forge" placeholder="Что тебя привлекло? Чего ты ожидаешь от программы?" rows="3" oninput="countChars('whyText', 'whyCount', 400)" required></textarea>
+                    <div class="field-footer"><span class="char-count" id="whyCount">0 / 400</span></div>
+                </div>
+            </div>
+
+            <!-- EXPERIENCE -->
+            <div class="form-section">
+                <div class="form-section-title">Опыт и готовность</div>
+                <div class="field">
+                    <label>Опыт в программировании</label>
+                    <div class="radio-group">
+                        <label class="radio-card">
+                            <input type="radio" name="coding" value="none">
+                            <div class="radio-card-body">
+                                <div class="rc-label">Нет опыта</div>
+                                <div class="rc-desc">Никогда не писал код, но хочу попробовать</div>
+                            </div>
+                        </label>
+                        <label class="radio-card">
+                            <input type="radio" name="coding" value="basic">
+                            <div class="radio-card-body">
+                                <div class="rc-label">Базовый</div>
+                                <div class="rc-desc">Понимаю логику, иногда пишу скрипты или пробовал курсы</div>
+                            </div>
+                        </label>
+                        <label class="radio-card">
+                            <input type="radio" name="coding" value="intermediate">
+                            <div class="radio-card-body">
+                                <div class="rc-label">Средний / уверенный</div>
+                                <div class="rc-desc">Умею строить приложения, работал с API, знаю основы</div>
+                            </div>
+                        </label>
+                    </div>
+                </div>
+                <div class="field" style="margin-top:16px">
+                    <label>Сколько часов в неделю готов вкладывать? <span>*</span></label>
+                    <select name="Часов в неделю" required>
+                        <option value="" disabled selected>Выбери вариант</option>
+                        <option>5–7 часов (минимум)</option>
+                        <option>8–12 часов</option>
+                        <option>12–20 часов</option>
+                        <option>20+ часов, готов вложиться полностью</option>
+                    </select>
+                    <div class="hint">Минимальный порог для участия — 8 часов в неделю</div>
+                </div>
+            </div>
+
+            <!-- EXTRA -->
+            <div class="form-section">
+                <div class="form-section-title">Дополнительно</div>
+                <div class="field">
+                    <label>Откуда узнал о Forge?</label>
+                    <select name="Источник">
+                        <option value="" disabled selected>Выбери вариант</option>
+                        <option>Instagram</option>
+                        <option>LinkedIn</option>
+                        <option>Telegram</option>
+                        <option>От знакомого</option>
+                        <option>Другое</option>
+                    </select>
+                </div>
+                <div class="field">
+                    <label>Что-то ещё хочешь добавить?</label>
+                    <textarea name="Дополнительно" placeholder="Ссылка на LinkedIn, GitHub, проект, вопрос — любая важная информация" rows="3"></textarea>
+                </div>
+            </div>
+
+            <!-- SUBMIT -->
+            <div class="submit-section">
+                <p class="submit-note">
+                    После отправки мы свяжемся с тобой в течение <strong>48 часов</strong>.
+                    Следующий шаг — короткий звонок на 20–30 минут. Никакого стресса.
+                </p>
+                <button type="submit">Отправить заявку →</button>
+            </div>
+        </form>
+
+        <!-- SUCCESS -->
+        <div class="success-screen" id="successScreen">
+            <div class="success-icon">
+                <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+                    <path d="M7 16l6 6 12-12" stroke="#006039" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </div>
+            <div class="success-title">Заявка отправлена!</div>
+            <p class="success-desc">
+                Мы получили твою заявку и свяжемся с тобой в течение 48 часов.
+                Проверь почту и Telegram.
+            </p>
+            <a href="index.html" class="success-back">← Вернуться на главную</a>
+        </div>
+    </div>
+</div>
+
+<script>
+    function countChars(textareaId, countId, max) {
+        const ta = document.getElementById(textareaId);
+        const counter = document.getElementById(countId);
+        const len = ta.value.length;
+        counter.textContent = len + ' / ' + max;
+        counter.style.color = len > max * 0.9 ? '#c0392b' : '#6b6b6b';
+    }
+
+    async function handleSubmit(e) {
+        e.preventDefault();
+        const form = document.getElementById('applyForm');
+        const btn = form.querySelector('button[type="submit"]');
+
+        // Validation
+        const required = form.querySelectorAll('[required]');
+        let valid = true;
+        required.forEach(el => {
+            if (!el.value.trim()) {
+                el.style.borderColor = '#c0392b';
+                el.style.background = '#fff5f5';
+                valid = false;
+                el.addEventListener('input', () => {
+                    el.style.borderColor = '';
+                    el.style.background = '';
+                }, { once: true });
+            }
+        });
+
+        if (!valid) {
+            form.querySelector('[style*="border-color"]')?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            return;
+        }
+
+        // Send to Formspree
+        btn.textContent = 'Отправляем...';
+        btn.disabled = true;
+        btn.style.opacity = '0.7';
+
+        try {
+            const data = new FormData(form);
+            const res = await fetch(form.action, {
+                method: 'POST',
+                body: data,
+                headers: { 'Accept': 'application/json' }
+            });
+
+            if (res.ok) {
+                form.style.display = 'none';
+                const success = document.getElementById('successScreen');
+                success.style.display = 'flex';
+                success.scrollIntoView({ behavior: 'smooth' });
+            } else {
+                btn.textContent = 'Ошибка — попробуй ещё раз';
+                btn.disabled = false;
+                btn.style.opacity = '1';
+                btn.style.background = '#c0392b';
+            }
+        } catch {
+            btn.textContent = 'Ошибка сети — попробуй ещё раз';
+            btn.disabled = false;
+            btn.style.opacity = '1';
+        }
+    }
+</script>
+</body>
+</html>
