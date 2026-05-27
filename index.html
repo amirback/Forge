@@ -331,6 +331,21 @@
             .foot-bottom { flex-direction: column; gap: 8px; text-align: center; }
             .hero-btns { flex-direction: column; }
         }
+
+        /* ANIMATIONS */
+        .anim {
+            opacity: 0;
+            transform: translateY(32px);
+            transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+                        transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .anim.in {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        @media (prefers-reduced-motion: reduce) {
+            .anim { opacity: 1; transform: none; transition: none; }
+        }
     </style>
 </head>
 <body>
@@ -789,6 +804,58 @@
             ans.style.maxHeight = ans.scrollHeight + 'px';
         }
     }
+
+    // SCROLL ANIMATIONS
+    (function () {
+        const animSelectors = [
+            '.hero-badge', 'h1', '.hero-tagline', '.hero-desc', '.hero-btns',
+            '.label', 'section h2', '.section-lead',
+            '.about-text p', '.mentors-text',
+            '.stat', '.fw-item', '.phase',
+            '.p-card', '.ben-item',
+            '.cmp-head', '.cmp-row',
+            '.faq-item',
+            '.mentor-card',
+            '.cta-block h2', '.cta-sub', '.btn-white',
+            '.foot-logo', '.foot-tagline', '.foot-email', '.foot-contact-label'
+        ];
+
+        animSelectors.forEach(sel => {
+            document.querySelectorAll(sel).forEach(el => el.classList.add('anim'));
+        });
+
+        // Stagger delays for grid/list containers
+        [
+            { parent: '.hero',          step: 110 },
+            { parent: '.stats',         step: 80  },
+            { parent: '.forwho-grid',   step: 70  },
+            { parent: '.timeline',      step: 90  },
+            { parent: '.products-grid', step: 65  },
+            { parent: '.ben-grid',      step: 65  },
+            { parent: '.cmp-table',     step: 55  },
+            { parent: '.faq-list',      step: 50  },
+            { parent: '.about-text',    step: 80  },
+            { parent: '.foot-top',      step: 120 },
+        ].forEach(({ parent, step }) => {
+            const p = document.querySelector(parent);
+            if (!p) return;
+            p.querySelectorAll('.anim').forEach((el, i) => {
+                el.style.transitionDelay = (i * step) + 'ms';
+            });
+        });
+
+        // Intersection Observer
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('in');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+
+        document.querySelectorAll('.anim').forEach(el => observer.observe(el));
+    })();
 </script>
 </body>
 </html>
